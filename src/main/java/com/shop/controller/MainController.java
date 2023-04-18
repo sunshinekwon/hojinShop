@@ -10,4 +10,9 @@ public class MainController {
     public String main(){
         return "main";
     }
+
+    @GetMapping(value = "/apis")
+    public String apis(){
+        return "redirect:/swagger-ui/index.html";
+    }
 }

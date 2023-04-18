@@ -35,6 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .mvcMatchers("/","/members/**",
                             "/item/**","/images/**").permitAll()
+                .mvcMatchers("/swaggerApi/**").permitAll()
+                .mvcMatchers("/swagger-ui/**").permitAll()
+                .mvcMatchers("/apis/**").permitAll()
+                .mvcMatchers("/swagger-resources/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
@@ -47,7 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**","/js/**","/img/**");
+
+        // swagger
+        web.ignoring().antMatchers(
+                "/v2/api-docs",  "/configuration/ui",
+                "/swagger-resources", "/configuration/security",
+                "/swagger-ui.html", "/webjars/**","/swagger/**");
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){
